@@ -22,7 +22,7 @@ struct RecordList: View {
                 }
 
             }
-            .onDelete(perform: deleteItems(offsets:))
+            .onDelete(perform: deleteRecords(offsets:))
         }
         .toolbar {
 #if os(iOS)
@@ -31,21 +31,21 @@ struct RecordList: View {
                 }
 #endif
                 ToolbarItem {
-                    Button(action: addItem) {
+                    Button(action: addRecord) {
                         Label("Add Item", systemImage: "plus")
                     }
                 }
             }
     }
 
-    private func addItem() {
+    private func addRecord() {
         withAnimation {
-            let newItem = Record(start: Date(), end: Date().addingTimeInterval(60), distance: 0, daylightCondition: .day, weatherConditions: "", car: "")
-            modelContext.insert(newItem)
+            let newRecord = Record(start: Date(), end: Date().addingTimeInterval(60), distance: 0, daylightCondition: .day, weatherConditions: "", car: "")
+            modelContext.insert(newRecord)
         }
     }
 
-    private func deleteItems(offsets: IndexSet) {
+    private func deleteRecords(offsets: IndexSet) {
         withAnimation {
             for index in offsets {
                 modelContext.delete(records[index])
