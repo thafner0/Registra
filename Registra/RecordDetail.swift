@@ -16,6 +16,9 @@ struct RecordDetail: View {
     @State var weatherConditions = ""
     @State var car = ""
     
+    @Environment(\.modelContext) var context
+    @Environment(\.dismiss) var dismiss
+    
     var body: some View {
         Form {
             DatePicker("Start", selection: $start, in: ...end)
@@ -34,7 +37,8 @@ struct RecordDetail: View {
             if let record {
                 start = record.start
                 end = record.end
-                daylightCondition = record.lightingCondition
+                drivenDistance = record.drivenDistance
+                daylightCondition = record.daylightCondition
                 weatherConditions = record.weatherConditions
                 car = record.car
             }
@@ -44,6 +48,31 @@ struct RecordDetail: View {
                 print(newValue * 5)
             } else {
                 print("No value")
+            }
+        }
+        .toolbar {
+            if record == nil {
+                ToolbarItem(id: "cancel", placement: .cancellationAction) {
+                    Button("Cancel") {
+                        dismiss()
+                    }
+                }
+            }
+            ToolbarItem(id: "commit", placement: .confirmationAction) {
+                Button("Save") {
+                    if let record {
+                        record.start = start
+                        record.end = end
+                        record.drivenDistance = drivenDistance
+                        record.daylightCondition = daylightCondition
+                        record.weatherConditions = weatherConditions
+                        record.car = car
+                    } else {
+                        let new = Record(start: start, end: end, drivenDistance: drivenDistance, daylightCondition: daylightCondition, weatherConditions: weatherConditions, car: car)
+                        context.insert(new)
+                    }
+                    dismiss()
+                }
             }
         }
     }

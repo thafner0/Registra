@@ -11,6 +11,7 @@ import SwiftData
 struct RecordList: View {
     @Query private var records: [Record]
     @Environment(\.modelContext) private var modelContext
+    @State private var showAddRecordSheet = false
     
     var body: some View {
         List {
@@ -20,27 +21,34 @@ struct RecordList: View {
                 } label: {
                     RecordCell(record: record)
                 }
-
+                
             }
             .onDelete(perform: deleteRecords(offsets:))
         }
         .toolbar {
 #if os(iOS)
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                EditButton()
+            }
 #endif
-                ToolbarItem {
-                    Button(action: addRecord) {
-                        Label("Add Item", systemImage: "plus")
-                    }
+            ToolbarItem {
+                Button {
+                    showAddRecordSheet = true
+                } label: {
+                    Label("Add Item", systemImage: "plus")
                 }
             }
+        }
+        .sheet(isPresented: $showAddRecordSheet) {
+            NavigationStack {
+                RecordDetail(record: nil)
+            }
+        }
     }
 
     private func addRecord() {
         withAnimation {
-            let newRecord = Record(start: Date(), end: Date().addingTimeInterval(60), distance: 0, daylightCondition: .day, weatherConditions: "", car: "")
+            let newRecord = Record(start: Date(), end: Date().addingTimeInterval(60), drivenDistance: 0, daylightCondition: .day, weatherConditions: "", car: "")
             modelContext.insert(newRecord)
         }
     }
