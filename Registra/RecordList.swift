@@ -44,13 +44,7 @@ struct RecordList: View {
                 RecordDetail(record: nil)
             }
         }
-    }
-
-    private func addRecord() {
-        withAnimation {
-            let newRecord = Record(start: Date(), end: Date().addingTimeInterval(60), drivenDistance: 0, daylightCondition: .day, weatherConditions: "", car: "")
-            modelContext.insert(newRecord)
-        }
+        .navigationTitle("Records")
     }
 
     private func deleteRecords(offsets: IndexSet) {
