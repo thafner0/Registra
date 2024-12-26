@@ -15,7 +15,12 @@ struct RecordList: View {
     var body: some View {
         List {
             ForEach(records) { record in
-                RecordCell(record: record)
+                NavigationLink {
+                    RecordDetail(record: record)
+                } label: {
+                    RecordCell(record: record)
+                }
+
             }
             .onDelete(perform: deleteItems(offsets:))
         }
