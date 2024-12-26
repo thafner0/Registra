@@ -11,6 +11,7 @@ struct RecordDetail: View {
     let record: Record?
     @State var start: Date = Date().addingTimeInterval(-600)
     @State var end: Date = Date()
+    @State var drivenDistance: Double?
     @State var daylightCondition: DaylightCondition = .day
     @State var weatherConditions = ""
     @State var car = ""
@@ -19,6 +20,7 @@ struct RecordDetail: View {
         Form {
             DatePicker("Start", selection: $start, in: ...end)
             DatePicker("End", selection: $end, in: start...)
+            TextField("Driven Distance", value: $drivenDistance, format: OptionalFormatStyle(baseFormat: .number))
             Picker("Daylight Condition", selection: $daylightCondition) {
                 Text("Day").tag(DaylightCondition.day)
                 Text("Night").tag(DaylightCondition.night)
@@ -35,6 +37,13 @@ struct RecordDetail: View {
                 daylightCondition = record.lightingCondition
                 weatherConditions = record.weatherConditions
                 car = record.car
+            }
+        }
+        .onChange(of: drivenDistance) { oldValue, newValue in
+            if let newValue {
+                print(newValue * 5)
+            } else {
+                print("No value")
             }
         }
     }
