@@ -19,7 +19,7 @@ struct ContentView: View {
                     NavigationLink {
                         Text("Item at \(item.start, format: Date.FormatStyle(date: .numeric, time: .standard))")
                     } label: {
-                        Text(item.start, format: Date.FormatStyle(date: .numeric, time: .standard))
+                        RecordCell(record: item)
                     }
                 }
                 .onDelete(perform: deleteItems)
