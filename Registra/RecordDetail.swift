@@ -43,13 +43,6 @@ struct RecordDetail: View {
                 car = record.car
             }
         }
-        .onChange(of: drivenDistance) { oldValue, newValue in
-            if let newValue {
-                print(newValue * 5)
-            } else {
-                print("No value")
-            }
-        }
         .toolbar {
             if record == nil {
                 ToolbarItem(id: "cancel", placement: .cancellationAction) {
