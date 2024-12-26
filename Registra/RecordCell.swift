@@ -24,7 +24,7 @@ struct RecordCell: View {
 
 
 #Preview {
-    let record = Record(start: Date(), end: Date().addingTimeInterval(600), distance: 7.4, lightingCondition: .day, weatherConditions: "Cloudy with heavy rain", car: "Dad's Car")
+    let record = Record(start: Date(), end: Date().addingTimeInterval(600), distance: 7.4, daylightCondition: .day, weatherConditions: "Cloudy with heavy rain", car: "Dad's Car")
     let locales = ["en_UK", "fr_FR"].map(Locale.init)
     
     List {

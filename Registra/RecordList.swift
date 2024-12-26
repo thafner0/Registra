@@ -40,7 +40,7 @@ struct RecordList: View {
 
     private func addItem() {
         withAnimation {
-            let newItem = Record(start: Date(), end: Date().addingTimeInterval(60), distance: 0, lightingCondition: .day, weatherConditions: "", car: "")
+            let newItem = Record(start: Date(), end: Date().addingTimeInterval(60), distance: 0, daylightCondition: .day, weatherConditions: "", car: "")
             modelContext.insert(newItem)
         }
     }

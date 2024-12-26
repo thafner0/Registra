@@ -14,21 +14,21 @@ final class Record: Identifiable {
     var start: Date
     var end: Date
     var distance: Double
-    var lightingCondition: LightingCondition
+    var lightingCondition: DaylightCondition
     var weatherConditions: String
     var car: String
     
-    init(start: Date, end: Date, distance: Double, lightingCondition: LightingCondition, weatherConditions: String, car: String) {
+    init(start: Date, end: Date, distance: Double, daylightCondition: DaylightCondition, weatherConditions: String, car: String) {
         self.start = start
         self.end = end
         self.distance = distance
-        self.lightingCondition = lightingCondition
+        self.lightingCondition = daylightCondition
         self.weatherConditions = weatherConditions
         self.car = car
     }
 }
 
-enum LightingCondition: Codable {
+enum DaylightCondition: Codable, Hashable {
     case day
     case night
 }
