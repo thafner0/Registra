@@ -15,6 +15,7 @@ struct RecordDetail: View {
     @State var daylightCondition: DaylightCondition = .day
     @State var weatherConditions = ""
     @State var car = ""
+    @State var notes = ""
     
     @Environment(\.modelContext) var context
     @Environment(\.dismiss) var dismiss
@@ -29,8 +30,10 @@ struct RecordDetail: View {
                 Text("Night").tag(DaylightCondition.night)
             }
             .pickerStyle(.segmented)
-            TextField("Weather Conditions", text: $weatherConditions)
+            TextField("Weather Conditions", text: $weatherConditions, axis: .vertical)
             TextField("Car", text: $car)
+            
+            TextField("Notes", text: $notes, axis: .vertical)
         }
         .navigationTitle(record == nil ? "New Record" : "Record Detail")
         .onAppear {
@@ -41,6 +44,7 @@ struct RecordDetail: View {
                 daylightCondition = record.daylightCondition
                 weatherConditions = record.weatherConditions
                 car = record.car
+                notes = record.notes
             }
         }
         .toolbar {
@@ -60,8 +64,9 @@ struct RecordDetail: View {
                         record.daylightCondition = daylightCondition
                         record.weatherConditions = weatherConditions
                         record.car = car
+                        record.notes = notes
                     } else {
-                        let new = Record(start: start, end: end, drivenDistance: drivenDistance, daylightCondition: daylightCondition, weatherConditions: weatherConditions, car: car)
+                        let new = Record(start: start, end: end, drivenDistance: drivenDistance, daylightCondition: daylightCondition, weatherConditions: weatherConditions, car: car, notes: notes)
                         context.insert(new)
                     }
                     dismiss()
