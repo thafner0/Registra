@@ -24,7 +24,7 @@ struct RecordDetail: View {
         Form {
             DatePicker("Start", selection: $start, in: ...end)
             DatePicker("End", selection: $end, in: start...)
-            TextField("Driven Distance", value: $drivenDistance, format: OptionalFormatStyle(baseFormat: .number))
+            TextField("Driven Distance", value: $drivenDistance, format: .number)
             Picker("Daylight Condition", selection: $daylightCondition) {
                 Text("Day").tag(DaylightCondition.day)
                 Text("Night").tag(DaylightCondition.night)
