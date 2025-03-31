@@ -31,5 +31,7 @@ final class Car: Identifiable {
         self.model = model
         self.year = year
         self.trimLevel = trimLevel
+        
+        self.name = name
     }
 }

@@ -9,16 +9,18 @@ import SwiftUI
 import Foundation
 
 struct CarDetail: View {
-    @State var registrationCountryCode = ""
-    @State var registrationRegionCode = ""
-    @State var registrationNumber = ""
+    let car: Car?
     
-    @State var make = ""
-    @State var model = ""
+    @State var registrationCountryCode: String
+    @State var registrationRegionCode: String
+    @State var registrationNumber: String
+    
+    @State var make: String
+    @State var model: String
     @State var year: Int?
-    @State var trimLevel = ""
+    @State var trimLevel: String
     
-    @State var name = ""
+    @State var name: String
     
     var body: some View {
         Form {
@@ -29,7 +31,7 @@ struct CarDetail: View {
             Section(header: Text("Car Details")) {
                 TextField("Make", text: $make)
                 TextField("Model", text: $model)
-                TextField("Year", value: $year, format: .number)
+                TextField("Year", value: $year, format: .number.grouping(.never))
                 TextField("Trim Level", text: $trimLevel)
             }
             
@@ -41,10 +43,22 @@ struct CarDetail: View {
         }
         .navigationTitle("Car Detail")
     }
+    
+    init(car: Car?) {
+        self.car = car
+        self.registrationCountryCode = car?.registrationCountryCode ?? ""
+        self.registrationRegionCode = car?.registrationRegionCode ?? ""
+        self.registrationNumber = car?.registrationNumber ?? ""
+        self.make = car?.make ?? ""
+        self.model = car?.model ?? ""
+        self.year = car?.year
+        self.trimLevel = car?.trimLevel ?? ""
+        self.name = car?.name ?? ""
+    }
 }
 
 #Preview {
     NavigationStack {
-        CarDetail()
+        CarDetail(car: Car(registrationCountryCode: "US", registrationRegionCode: "IL", registrationNumber: "DUMMY", make: "Toyota", model: "Corolla", year: 2010, trimLevel: "SE", name: "Carrio"))
     }
 }
