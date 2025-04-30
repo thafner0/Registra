@@ -26,4 +26,8 @@ final class Car: Identifiable {
         
         self.name = name
     }
+    
+    var description: String {
+        return [year?.formatted(.number.grouping(.never)), make, model, trimLevel].compactMap({ $0 }).joined(separator: " ")
+    }
 }
