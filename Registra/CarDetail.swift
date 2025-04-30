@@ -10,7 +10,7 @@ import Foundation
 
 struct CarDetail: View {
     @Environment(\.modelContext) var context
-    @Environment(\.dismiss) var dismissAction
+    @Environment(\.dismiss) var dismiss
     let car: Car?
     
     @State var make: String
@@ -33,14 +33,21 @@ struct CarDetail: View {
                 TextField("Trim Level", text: $trimLevel)
             }
         }
-        .navigationTitle("Car Detail")
+        .navigationTitle(car != nil ? "Edit Car" : "New Car")
         .toolbar {
-            Button("Save") {
-                guard let car else {
-                    let newCar = Car(name: name, make: make, model: model, year: year, trimLevel: trimLevel)
-                    context.insert(newCar)
-                    dismissAction.callAsFunction()
-                    return
+            ToolbarItem(placement: .confirmationAction) {
+                Button("Save") {
+                    if let car {
+                        car.make = make
+                        car.model = model
+                        car.year = year
+                        car.trimLevel = trimLevel
+                        car.name = name
+                    } else {
+                        let newCar = Car(name: name, make: make, model: model, year: year, trimLevel: trimLevel)
+                        context.insert(newCar)
+                    }
+                    dismiss()
                 }
             }
         }

@@ -14,7 +14,9 @@ struct CarList: View {
     
     var body: some View {
         List(cars) { car in
-            CarCell(car: car)
+            NavigationLink(value: car) {
+                CarCell(car: car)
+            }
         }
         .navigationTitle("Cars")
         .toolbar {
@@ -26,6 +28,9 @@ struct CarList: View {
             NavigationStack {
                 CarDetail(car: nil)
             }
+        }
+        .navigationDestination(for: Car.self) { car in
+            CarDetail(car: car)
         }
     }
 }
