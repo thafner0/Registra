@@ -11,10 +11,6 @@ import Foundation
 struct CarDetail: View {
     let car: Car?
     
-    @State var registrationCountryCode: String
-    @State var registrationRegionCode: String
-    @State var registrationNumber: String
-    
     @State var make: String
     @State var model: String
     @State var year: Int?
@@ -34,21 +30,12 @@ struct CarDetail: View {
                 TextField("Year", value: $year, format: .number.grouping(.never))
                 TextField("Trim Level", text: $trimLevel)
             }
-            
-            Section(header: Text("Registration Information")) {
-                TextField("Registration Country Code", text: $registrationCountryCode)
-                TextField("Registration Region Code", text: $registrationRegionCode)
-                TextField("Registration Number", text: $registrationNumber)
-            }
         }
         .navigationTitle("Car Detail")
     }
     
     init(car: Car?) {
         self.car = car
-        self.registrationCountryCode = car?.registrationCountryCode ?? ""
-        self.registrationRegionCode = car?.registrationRegionCode ?? ""
-        self.registrationNumber = car?.registrationNumber ?? ""
         self.make = car?.make ?? ""
         self.model = car?.model ?? ""
         self.year = car?.year
@@ -59,6 +46,6 @@ struct CarDetail: View {
 
 #Preview {
     NavigationStack {
-        CarDetail(car: Car(registrationCountryCode: "US", registrationRegionCode: "IL", registrationNumber: "DUMMY", make: "Toyota", model: "Corolla", year: 2010, trimLevel: "SE", name: "Carrio"))
+        CarDetail(car: Car(name: "Carrio", make: "Toyota", model: "Corolla", year: 2010, trimLevel: "SE"))
     }
 }
