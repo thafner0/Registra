@@ -12,7 +12,7 @@ import SwiftData
 struct RegistraApp: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
-            Record.self,
+            Record.self, Car.self
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 

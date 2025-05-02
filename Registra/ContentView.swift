@@ -11,16 +11,20 @@ import SwiftData
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var items: [Record]
-
+    
     var body: some View {
-        NavigationSplitView {
-            RecordList()
-#if os(macOS)
-            .navigationSplitViewColumnWidth(min: 180, ideal: 200)
-#endif
+        TabView {
+            Tab("Records", systemImage: "tray.full.fill") {
+                NavigationStack {
+                    RecordList()
+                }
+            }
             
-        } detail: {
-            Text("Select an item")
+            Tab("Cars", systemImage: "car.2.fill") {
+                NavigationStack {
+                    CarList()
+                }
+            }
         }
     }
 }
