@@ -14,13 +14,13 @@ final class Car: Identifiable {
     var isArchived: Bool = false
     
     var make: String
-    var model: String?
+    var model: String
     var year: Int?
-    var trimLevel: String?
+    var trimLevel: String
     
     var name: String
     
-    init(name: String, make: String, model: String? = nil, year: Int? = nil, trimLevel: String? = nil) {
+    init(name: String, make: String, model: String, year: Int? = nil, trimLevel: String) {
         self.make = make
         self.model = model
         self.year = year

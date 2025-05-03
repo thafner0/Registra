@@ -20,16 +20,20 @@ struct CarDetail: View {
     
     @State var name: String
     
+    var cannotContinue: Bool {
+        make.isEmpty || name.isEmpty
+    }
+    
     var body: some View {
         Form {
             Section(header: Text("Display Name")) {
-                TextField("Name", text: $name, prompt: Text("eg: John's Car"))
+                TextField("Name", text: $name, prompt: Text("eg: John's Car (required)"))
             }
             
             Section(header: Text("Car Details")) {
                 TextField("Year", value: $year, format: .number.grouping(.never))
                     .keyboardType(.numberPad)
-                TextField("Make", text: $make)
+                TextField("Make (required)", text: $make)
                 TextField("Model", text: $model)
                 TextField("Trim Level", text: $trimLevel)
             }
@@ -40,16 +44,19 @@ struct CarDetail: View {
                 Button("Save") {
                     if let car {
                         car.make = make
-                        car.model = model
-                        car.year = year
-                        car.trimLevel = trimLevel
                         car.name = name
+                        
+                        car.model = model
+                        car.trimLevel = trimLevel
+                        
+                        car.year = year
                     } else {
                         let newCar = Car(name: name, make: make, model: model, year: year, trimLevel: trimLevel)
                         context.insert(newCar)
                     }
                     dismiss()
                 }
+                .disabled(cannotContinue)
             }
             
             if car == nil {
