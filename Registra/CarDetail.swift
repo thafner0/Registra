@@ -50,6 +50,14 @@ struct CarDetail: View {
                     dismiss()
                 }
             }
+            
+            if car == nil {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancel") {
+                        dismiss()
+                    }
+                }
+            }
         }
     }
     
