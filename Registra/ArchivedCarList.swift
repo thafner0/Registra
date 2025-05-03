@@ -11,7 +11,7 @@ import SwiftData
 struct ArchivedCarList: View {
     @Query(filter: #Predicate<Car> { car in
         car.isArchived
-    })
+    }, sort: \Car.name, animation: .default)
     var cars: [Car]
     
     @Environment(\.dismiss) var dismiss
@@ -21,7 +21,7 @@ struct ArchivedCarList: View {
             NavigationLink(value: car) {
                 CarCell(car: car)
                     .swipeActions(edge: .leading) {
-                        Button("Unarchive Car", systemImage: "eye.fill") {
+                        Button("Unarchive Car", systemImage: "eye.fill", role: .destructive) {
                             car.isArchived = false
                         }
                         .tint(.green)
