@@ -11,6 +11,8 @@ import SwiftData
 @Model
 final class Car: Identifiable {
     var id = UUID()
+    var isArchived: Bool = false
+    
     var make: String
     var model: String?
     var year: Int?
