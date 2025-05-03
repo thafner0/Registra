@@ -27,9 +27,10 @@ struct CarDetail: View {
             }
             
             Section(header: Text("Car Details")) {
+                TextField("Year", value: $year, format: .number.grouping(.never))
+                    .keyboardType(.numberPad)
                 TextField("Make", text: $make)
                 TextField("Model", text: $model)
-                TextField("Year", value: $year, format: .number.grouping(.never))
                 TextField("Trim Level", text: $trimLevel)
             }
         }
