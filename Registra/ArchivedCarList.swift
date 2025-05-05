@@ -17,15 +17,26 @@ struct ArchivedCarList: View {
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
-        List(cars) { car in
-            NavigationLink(value: car) {
-                CarCell(car: car)
-                    .swipeActions(edge: .leading) {
-                        Button("Unarchive Car", systemImage: "eye.fill", role: .destructive) {
-                            car.isArchived = false
-                        }
-                        .tint(.green)
+        Group {
+            if cars.isEmpty {
+                Text("No Archived Cars")
+                    .font(.title)
+                    .foregroundStyle(.secondary)
+            } else {
+                List(cars) { car in
+                    NavigationLink(value: car) {
+                        CarCell(car: car)
+                            .swipeActions(edge: .leading) {
+                                Button("Unarchive Car", systemImage: "tray.and.arrow.up.fill", role: .destructive) {
+                                    car.isArchived = false
+                                }
+                                .tint(.green)
+                            }
                     }
+                }
+                .navigationDestination(for: Car.self) { car in
+                    CarDetail(car: car)
+                }
             }
         }
         .navigationTitle("Archived Cars")
@@ -36,9 +47,6 @@ struct ArchivedCarList: View {
                 }
                 .bold()
             }
-        }
-        .navigationDestination(for: Car.self) { car in
-            CarDetail(car: car)
         }
     }
 }

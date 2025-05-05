@@ -27,7 +27,7 @@ struct CarList: View {
             NavigationLink(value: car) {
                 CarCell(car: car)
                     .swipeActions(edge: .leading) {
-                        Button("Archive", systemImage: "eye.slash", role: .destructive) {
+                        Button("Archive", systemImage: "tray.and.arrow.down", role: .destructive) {
                             car.isArchived = true
                         }
                         .tint(.blue)
