@@ -18,7 +18,8 @@ final class Car: Identifiable {
     var year: Int?
     var trimLevel: String
     
-    var name: String
+    @Relationship(deleteRule: .cascade, inverse: \Record.car)
+    var records: [Record] = []
     
     init(name: String, make: String, model: String, year: Int? = nil, trimLevel: String) {
         self.make = make

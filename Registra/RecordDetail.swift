@@ -6,15 +6,19 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct RecordDetail: View {
+    @Query(filter: #Predicate<Car>{ car in !car.isArchived }, sort: \Car.name, animation: .default)
+    var cars: [Car]
+    
     let record: Record?
     @State var start: Date = Date().addingTimeInterval(-600)
     @State var end: Date = Date()
     @State var drivenDistance: Double?
     @State var daylightCondition: DaylightCondition = .day
     @State var weatherConditions = ""
-    @State var car = ""
+    @State var car: Car? = nil
     @State var notes = ""
     
     @Environment(\.modelContext) var context
@@ -31,7 +35,14 @@ struct RecordDetail: View {
             }
             .pickerStyle(.segmented)
             TextField("Weather Conditions", text: $weatherConditions, axis: .vertical)
-            TextField("Car", text: $car)
+            Picker("Car", selection: $car) {
+                if record == nil {
+                    Text("Select Car").tag(Car?.none)
+                }
+                ForEach(cars) { car in
+                    Text(car.name).tag(car, includeOptional: true)
+                }
+            }
             
             TextField("Notes", text: $notes, axis: .vertical)
         }
@@ -63,14 +74,15 @@ struct RecordDetail: View {
                         record.drivenDistance = drivenDistance
                         record.daylightCondition = daylightCondition
                         record.weatherConditions = weatherConditions
-                        record.car = car
+                        record.car = car!
                         record.notes = notes
                     } else {
-                        let new = Record(start: start, end: end, drivenDistance: drivenDistance, daylightCondition: daylightCondition, weatherConditions: weatherConditions, car: car, notes: notes)
+                        let new = Record(start: start, end: end, drivenDistance: drivenDistance, daylightCondition: daylightCondition, weatherConditions: weatherConditions, car: car!, notes: notes)
                         context.insert(new)
                     }
                     dismiss()
                 }
+                .disabled(car == nil)
             }
         }
     }

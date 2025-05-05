@@ -16,10 +16,11 @@ final class Record: Identifiable {
     var drivenDistance: Double?
     var daylightCondition: DaylightCondition
     var weatherConditions: String
-    var car: String
     var notes: String
     
-    init(start: Date, end: Date, drivenDistance: Double?, daylightCondition: DaylightCondition, weatherConditions: String, car: String, notes: String) {
+    var car: Car
+
+    init(start: Date, end: Date, drivenDistance: Double?, daylightCondition: DaylightCondition, weatherConditions: String, car: Car, notes: String) {
         self.start = start
         self.end = end
         self.drivenDistance = drivenDistance
