@@ -10,7 +10,7 @@ import SwiftData
 
 @Model
 final class Car: Identifiable {
-    var id = UUID()
+    @Attribute(.unique, .preserveValueOnDeletion) var name: String
     var isArchived: Bool = false
     
     var make: String

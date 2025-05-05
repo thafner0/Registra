@@ -26,7 +26,7 @@ struct CarDetail: View {
     
     var body: some View {
         Form {
-            Section(header: Text("Display Name")) {
+            Section(header: Text("Display Name"), footer: Text("Inputting a display name that already belongs to another car will result in the below details overwriting the existing details.")) {
                 TextField("Name", text: $name, prompt: Text("eg: John's Car (required)"))
             }
             
