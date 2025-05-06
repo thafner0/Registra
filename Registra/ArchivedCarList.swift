@@ -30,7 +30,7 @@ struct ArchivedCarList: View {
                                 Button("Unarchive Car", systemImage: "tray.and.arrow.up.fill", role: .destructive) {
                                     car.isArchived = false
                                 }
-                                .tint(.green)
+                                .tint(.blue)
                             }
                     }
                 }
