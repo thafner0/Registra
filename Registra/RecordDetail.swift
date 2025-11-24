@@ -13,8 +13,8 @@ struct RecordDetail: View {
     var cars: [Car]
     
     let record: Record?
-    @State var start: Date = Date().addingTimeInterval(-600)
-    @State var end: Date = Date()
+    @State var start: Date?
+    @State var end: Date?
     @State var drivenDistance: Double?
     @State var daylightCondition: DaylightCondition = .day
     @State var weatherConditions = ""
@@ -26,8 +26,12 @@ struct RecordDetail: View {
     
     var body: some View {
         Form {
-            DatePicker("Start", selection: $start, in: ...end)
-            DatePicker("End", selection: $end, in: start...)
+            if record != nil, let start = Binding($start), let end = Binding($end) {
+                ExistingRecordTemporalInformation(start: start, end: end)
+            } else {
+                NewRecordTermporalInfromation(start: $start, end: $end)
+            }
+            
             TextField("Driven Distance", value: $drivenDistance, format: .number)
             Picker("Daylight Condition", selection: $daylightCondition) {
                 Text("Day").tag(DaylightCondition.day)
@@ -69,20 +73,20 @@ struct RecordDetail: View {
             ToolbarItem(id: "commit", placement: .confirmationAction) {
                 Button("Save") {
                     if let record {
-                        record.start = start
-                        record.end = end
+                        record.start = start!
+                        record.end = end!
                         record.drivenDistance = drivenDistance
                         record.daylightCondition = daylightCondition
                         record.weatherConditions = weatherConditions
                         record.car = car!
                         record.notes = notes
                     } else {
-                        let new = Record(start: start, end: end, drivenDistance: drivenDistance, daylightCondition: daylightCondition, weatherConditions: weatherConditions, car: car!, notes: notes)
+                        let new = Record(start: start!, end: end!, drivenDistance: drivenDistance, daylightCondition: daylightCondition, weatherConditions: weatherConditions, car: car!, notes: notes)
                         context.insert(new)
                     }
                     dismiss()
                 }
-                .disabled(car == nil)
+                .disabled(car == nil && start == nil && end == nil)
             }
         }
     }
@@ -91,5 +95,11 @@ struct RecordDetail: View {
 #Preview {
     NavigationStack {
         RecordDetail(record: nil)
+    }
+}
+
+#Preview {
+    NavigationStack {
+        RecordDetail(record: Record(start: Date(timeIntervalSinceNow: Double.random(in: (-2500)...(-120))), end: Date(timeIntervalSinceNow: Double.random(in: (120)...(2500))), drivenDistance: Double.random(in: 0.1...230), daylightCondition: .day, weatherConditions: "The fog of despair", car: Car(name: "The Excellent", make: "Jeremy Clarkson", model: "The Excellent", trimLevel: "N/A"), notes: ""))
     }
 }
