@@ -16,7 +16,7 @@ struct RecordCell: View {
                 Text(record.start..<record.end, format: Date.IntervalFormatStyle(date: .complete, time: .shortened))
                 Group {
                     if let drivenDistance = record.rawDrivenDistance {
-                        Text("\(drivenDistance, format: .number) km \(carText)")
+                        Text("\(Measurement(value: drivenDistance, unit: record.car.odometerUnits.unit), format: .measurement(width: .abbreviated)) \(carText)")
                     } else {
                         Text(carText)
                     }
