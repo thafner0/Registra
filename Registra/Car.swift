@@ -18,19 +18,42 @@ final class Car: Identifiable {
     var year: Int?
     var trimLevel: String
     
+    var odometerUnits: DistanceUnit
+    
     @Relationship(deleteRule: .cascade, inverse: \Record.car)
     var records: [Record] = []
     
-    init(name: String, make: String, model: String, year: Int? = nil, trimLevel: String) {
+    init(name: String, make: String, model: String, year: Int? = nil, trimLevel: String, odometerUnits: DistanceUnit) {
         self.make = make
         self.model = model
         self.year = year
         self.trimLevel = trimLevel
         
         self.name = name
+        
+        self.odometerUnits = odometerUnits
     }
     
     var description: String {
         return [year?.formatted(.number.grouping(.never)), make, model, trimLevel].compactMap({ $0 }).joined(separator: " ")
+    }
+}
+
+enum DistanceUnit: Codable, CaseIterable, Hashable {
+    case kilometers
+    case miles
+    
+    var name: String {
+        switch self {
+        case .kilometers: return "kilometers"
+        case .miles: return "miles"
+        }
+    }
+    
+    var unit: UnitLength {
+        switch self {
+        case .kilometers: return .kilometers
+        case .miles: return .miles
+        }
     }
 }

@@ -34,7 +34,7 @@ struct RecordCell: View {
 
 
 #Preview {
-    let record = Record(start: Date(), end: Date().addingTimeInterval(600), drivenDistance: 7.4, daylightCondition: .day, weatherConditions: "Cloudy with heavy rain", car: Car(name: "Dad's Car", make: "Toyota", model: "", trimLevel: ""), notes: "")
+    let record = Record(start: Date(), end: Date().addingTimeInterval(600), drivenDistance: 7.4, daylightCondition: .day, weatherConditions: "Cloudy with heavy rain", car: Car(name: "Dad's Car", make: "Toyota", model: "", trimLevel: "", odometerUnits: .kilometers), notes: "")
     let locales = ["en_UK", "fr_FR"].map(Locale.init)
     
     List {

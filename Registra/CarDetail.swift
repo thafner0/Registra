@@ -19,6 +19,7 @@ struct CarDetail: View {
     @State var trimLevel: String
     
     @State var name: String
+    @State var odometerUnits: DistanceUnit = .kilometers
     
     var cannotContinue: Bool {
         make.isEmpty || name.isEmpty
@@ -36,6 +37,12 @@ struct CarDetail: View {
                 TextField("Make (required)", text: $make)
                 TextField("Model", text: $model)
                 TextField("Trim Level", text: $trimLevel)
+                
+                Picker("Odometer Distance Unit", selection: $odometerUnits) {
+                    ForEach(DistanceUnit.allCases, id: \.self) { unit in
+                        Text(unit.name)
+                    }
+                }
             }
         }
         .navigationTitle(car != nil ? "Edit Car" : "New Car")
@@ -50,8 +57,10 @@ struct CarDetail: View {
                         car.trimLevel = trimLevel
                         
                         car.year = year
+                        
+                        car.odometerUnits = odometerUnits
                     } else {
-                        let newCar = Car(name: name, make: make, model: model, year: year, trimLevel: trimLevel)
+                        let newCar = Car(name: name, make: make, model: model, year: year, trimLevel: trimLevel, odometerUnits: odometerUnits)
                         context.insert(newCar)
                     }
                     dismiss()
@@ -76,11 +85,12 @@ struct CarDetail: View {
         self.year = car?.year
         self.trimLevel = car?.trimLevel ?? ""
         self.name = car?.name ?? ""
+        self.odometerUnits = car?.odometerUnits ?? .kilometers
     }
 }
 
 #Preview {
     NavigationStack {
-        CarDetail(car: Car(name: "Carrio", make: "Toyota", model: "Corolla", year: 2010, trimLevel: "SE"))
+        CarDetail(car: Car(name: "Carrio", make: "Toyota", model: "Corolla", year: 2010, trimLevel: "SE", odometerUnits: .miles))
     }
 }

@@ -21,5 +21,5 @@ struct CarCell: View {
 }
 
 #Preview(traits: .sizeThatFitsLayout) {
-    CarCell(car: Car(name: "Carrio", make: "Toyota", model: "Corolla", year: 2010, trimLevel: "SE"))
+    CarCell(car: Car(name: "Carrio", make: "Toyota", model: "Corolla", year: 2010, trimLevel: "SE", odometerUnits: .kilometers))
 }

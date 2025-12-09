@@ -100,6 +100,6 @@ struct RecordDetail: View {
 
 #Preview {
     NavigationStack {
-        RecordDetail(record: Record(start: Date(timeIntervalSinceNow: Double.random(in: (-2500)...(-120))), end: Date(timeIntervalSinceNow: Double.random(in: (120)...(2500))), drivenDistance: Double.random(in: 0.1...230), daylightCondition: .day, weatherConditions: "The fog of despair", car: Car(name: "The Excellent", make: "Jeremy Clarkson", model: "The Excellent", trimLevel: "N/A"), notes: ""))
+        RecordDetail(record: Record(start: Date(timeIntervalSinceNow: Double.random(in: (-2500)...(-120))), end: Date(timeIntervalSinceNow: Double.random(in: (120)...(2500))), drivenDistance: Double.random(in: 0.1...230), daylightCondition: .day, weatherConditions: "The fog of despair", car: Car(name: "The Excellent", make: "Jeremy Clarkson", model: "The Excellent", trimLevel: "N/A", odometerUnits: .kilometers), notes: ""))
     }
 }
