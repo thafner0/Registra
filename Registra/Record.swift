@@ -13,21 +13,41 @@ final class Record: Identifiable {
     var id = UUID()
     var start: Date
     var end: Date
-    var drivenDistance: Double?
+    var rawDrivenDistance: Double? {
+        didSet {
+            self.convertedDrivenDistance = convertDrivenDistance(from: rawDrivenDistance)
+        }
+    }
+    var convertedDrivenDistance: Double?
     var daylightCondition: DaylightCondition
     var weatherConditions: String
     var notes: String
     
     var car: Car
-
+    
     init(start: Date, end: Date, drivenDistance: Double?, daylightCondition: DaylightCondition, weatherConditions: String, car: Car, notes: String) {
         self.start = start
         self.end = end
-        self.drivenDistance = drivenDistance
+        self.rawDrivenDistance = drivenDistance
         self.daylightCondition = daylightCondition
         self.weatherConditions = weatherConditions
         self.car = car
         self.notes = notes
+        self.convertedDrivenDistance = convertDrivenDistance(from: drivenDistance)
+    }
+    
+    func convertDrivenDistance(from rawDrivenDistance: Double?) -> Double? {
+        guard let rawDrivenDistance else { return nil }
+        let unit: UnitLength
+        switch Locale.autoupdatingCurrent.measurementSystem {
+        case .metric:
+            unit = .kilometers
+        case .uk, .us:
+            unit = .miles
+        case let system:
+            fatalError("Unknown Measurement System (\(system))")
+        }
+        return unit.converter.value(fromBaseUnitValue: car.odometerUnits.unit.converter.baseUnitValue(fromValue: rawDrivenDistance))
     }
 }
 

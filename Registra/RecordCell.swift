@@ -15,7 +15,7 @@ struct RecordCell: View {
             VStack(alignment: .leading) {
                 Text(record.start..<record.end, format: Date.IntervalFormatStyle(date: .complete, time: .shortened))
                 Group {
-                    if let drivenDistance = record.drivenDistance {
+                    if let drivenDistance = record.rawDrivenDistance {
                         Text("\(drivenDistance, format: .number) km \(carText)")
                     } else {
                         Text(carText)
