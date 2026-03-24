@@ -92,7 +92,7 @@ struct RecordDetail: View {
                     }
                     dismiss()
                 }
-                .disabled(car == nil && start == nil && end == nil)
+                .disabled(car == nil || start == nil || end == nil)
             }
         }
     }

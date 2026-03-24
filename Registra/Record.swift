@@ -44,8 +44,9 @@ final class Record: Identifiable {
             unit = .kilometers
         case .uk, .us:
             unit = .miles
-        case let system:
-            fatalError("Unknown Measurement System (\(system))")
+        default:
+            // TODO: emit an error log message to indicate that an unexpected measurement system was found
+            unit = .kilometers
         }
         return unit.converter.value(fromBaseUnitValue: car.odometerUnits.unit.converter.baseUnitValue(fromValue: rawDrivenDistance))
     }

@@ -67,7 +67,6 @@ struct CarList: View {
             Button("Cancel", role: .cancel, action: {})
             Button("Delete", role: .destructive) {
                 context.delete(car)
-                try! context.save()
             }
         } message: { car in
             Text("Are you sure you want to delete '\(car.name)'?\nDeleting a car will also delete all records associated with it.")
