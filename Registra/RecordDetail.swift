@@ -57,17 +57,6 @@ struct RecordDetail: View {
             TextField("Notes", text: $notes, axis: .vertical)
         }
         .navigationTitle(record == nil ? "New Record" : "Record Detail")
-        .onAppear {
-            if let record {
-                start = record.start
-                end = record.end
-                rawDrivenDistance = record.rawDrivenDistance
-                daylightCondition = record.daylightCondition
-                weatherConditions = record.weatherConditions
-                car = record.car
-                notes = record.notes
-            }
-        }
         .toolbar {
             if record == nil {
                 ToolbarItem(id: "cancel", placement: .cancellationAction) {
@@ -94,6 +83,20 @@ struct RecordDetail: View {
                 }
                 .disabled(car == nil || start == nil || end == nil)
             }
+        }
+    }
+    
+    init(record: Record?) {
+        self.record = record
+        
+        if let record {
+            self.start = record.start
+            self.end = record.end
+            self.rawDrivenDistance = record.rawDrivenDistance
+            self.daylightCondition = record.daylightCondition
+            self.weatherConditions = record.weatherConditions
+            self.car = record.car
+            self.notes = record.notes
         }
     }
 }
