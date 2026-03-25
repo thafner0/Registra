@@ -44,7 +44,9 @@ struct RecordDetail: View {
                 Text("Night").tag(DaylightCondition.night)
             }
             .pickerStyle(.segmented)
+            
             TextField("Weather Conditions", text: $weatherConditions, axis: .vertical)
+            
             Picker("Car", selection: $car) {
                 if record == nil {
                     Text("Select Car").tag(Car?.none)
@@ -87,8 +89,6 @@ struct RecordDetail: View {
     }
     
     init(record: Record?) {
-        self.record = record
-        
         if let record {
             self.start = record.start
             self.end = record.end
@@ -98,6 +98,7 @@ struct RecordDetail: View {
             self.car = record.car
             self.notes = record.notes
         }
+        self.record = record
     }
 }
 
