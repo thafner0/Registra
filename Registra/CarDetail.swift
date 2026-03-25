@@ -79,13 +79,23 @@ struct CarDetail: View {
     }
     
     init(car: Car?) {
+        if let car {
+            self.make = car.make
+            self.model = car.model
+            self.year = car.year
+            self.trimLevel = car.trimLevel
+            self.name = car.name
+            self.odometerUnits = car.odometerUnits
+        } else {
+            self.make = ""
+            self.model = ""
+            self.year = nil
+            self.trimLevel = ""
+            self.name = ""
+            self.odometerUnits = .kilometers
+        }
+        
         self.car = car
-        self.make = car?.make ?? ""
-        self.model = car?.model ?? ""
-        self.year = car?.year
-        self.trimLevel = car?.trimLevel ?? ""
-        self.name = car?.name ?? ""
-        self.odometerUnits = car?.odometerUnits ?? .kilometers
     }
 }
 
