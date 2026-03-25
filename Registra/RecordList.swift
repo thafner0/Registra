@@ -9,7 +9,7 @@ import SwiftUI
 import SwiftData
 
 struct RecordList: View {
-    @Query private var records: [Record]
+    @Query(sort: \Record.start, order: .reverse) private var records: [Record]
     @Environment(\.modelContext) private var modelContext
     @State private var showAddRecordSheet = false
     
