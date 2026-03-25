@@ -32,7 +32,7 @@ struct RecordDetail: View {
             if record != nil, let start = Binding($start), let end = Binding($end) {
                 ExistingRecordTemporalInformation(start: start, end: end)
             } else {
-                NewRecordTermporalInfromation(start: $start, end: $end)
+                NewRecordTemporalInformation(start: $start, end: $end)
             }
             
             TextField("Driven Distance", value: $rawDrivenDistance, format: .number)

@@ -10,7 +10,6 @@ import SwiftData
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Record]
     
     var body: some View {
         TabView {
@@ -31,5 +30,5 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
-        .modelContainer(for: Record.self, inMemory: true)
+        .modelContainer(for: [Record.self, Car.self], inMemory: true)
 }

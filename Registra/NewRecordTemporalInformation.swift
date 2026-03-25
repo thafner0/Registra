@@ -1,5 +1,5 @@
 //
-//  NewRecordTermporalInfromation.swift
+//  NewRecordTemporalInformation.swift
 //  Registra
 //
 //  Created by Trevor Hafner on 11/23/25.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct NewRecordTermporalInfromation: View {
+struct NewRecordTemporalInformation: View {
     @Binding var start: Date?
     @Binding var end: Date?
     
@@ -24,5 +24,5 @@ struct NewRecordTermporalInfromation: View {
     @Previewable @State var end: Date? = Date.init(timeIntervalSinceNow: Double.random(in: (120)...(2500)))
     
     
-    NewRecordTermporalInfromation(start: $start, end: $end)
+    NewRecordTemporalInformation(start: $start, end: $end)
 }

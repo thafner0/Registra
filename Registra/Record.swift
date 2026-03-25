@@ -10,7 +10,6 @@ import SwiftData
 
 @Model
 final class Record: Identifiable {
-    var id = UUID()
     var start: Date
     var end: Date
     var rawDrivenDistance: Double?
